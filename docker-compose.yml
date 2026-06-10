@@ -1,8 +1,49 @@
 services:
-  iomt-fl-consensus:
+  fog:
     build: .
-    container_name: iomt-fl-consensus-tool
+    container_name: iomt-fl-fog
+    command: python scripts/fog_service.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CONFIG_CONSENSUS=threshold
+      - CONFIG_MAX_DEVIATION=0.6
+
+  edge:
+    build: .
+    container_name: iomt-fl-edge
+    command: python scripts/edge_service.py
+    depends_on:
+      - fog
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CONFIG_SEED=42
+      - CONFIG_NUM_CLIENTS=50
+      - CONFIG_SAMPLES_PER_CLIENT=120
+      - CONFIG_FAILURE_RATE=0.05
+      - CONFIG_NOISE=0.03
+      - CONFIG_NON_IID=false
+
+  cloud:
+    build: .
+    container_name: iomt-fl-cloud
+    command: python scripts/cloud_service.py
+    depends_on:
+      - edge
+      - fog
     volumes:
       - ./results:/app/results
     environment:
       - PYTHONUNBUFFERED=1
+      - CONFIG_NAME=docker_multi_layer
+      - CONFIG_SEED=42
+      - CONFIG_NUM_CLIENTS=50
+      - CONFIG_ROUNDS=15
+      - CONFIG_CLIENT_FRACTION=0.75
+      - CONFIG_AGGREGATOR=fedavg
+      - CONFIG_CONSENSUS=threshold
+      - CONFIG_MAX_DEVIATION=0.6
+      - CONFIG_FAILURE_RATE=0.05
+      - CONFIG_NOISE=0.03
+      - CONFIG_NON_IID=false
+      - EDGE_URL=http://edge:8000
+      - FOG_URL=http://fog:8001

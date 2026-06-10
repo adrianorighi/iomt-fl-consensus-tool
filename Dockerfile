@@ -12,4 +12,4 @@ COPY tests/ ./tests/
 
 ENV PYTHONPATH=/app/src
 
-CMD ["python", "scripts/run_demo.py", "--config", "config/scenario_baseline.json"]
+CMD ["python", "scripts/run_demo.py"]

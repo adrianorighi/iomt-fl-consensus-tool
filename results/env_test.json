@@ -1,0 +1,26 @@
+[
+  {
+    "round": 1,
+    "participation": 4,
+    "accepted_updates": 4,
+    "communication_cost": 12,
+    "w1": 0.0694859562569219,
+    "w2": 0.1091194096703022,
+    "bias": 0.038115779024690405,
+    "proxy_accuracy": 0.536120190825319,
+    "aggregator": "fedavg",
+    "consensus": "threshold"
+  },
+  {
+    "round": 2,
+    "participation": 4,
+    "accepted_updates": 4,
+    "communication_cost": 12,
+    "w1": 0.15507162299660437,
+    "w2": 0.2065955783577313,
+    "bias": 0.061793398269667454,
+    "proxy_accuracy": 0.5705767666040005,
+    "aggregator": "fedavg",
+    "consensus": "threshold"
+  }
+]
