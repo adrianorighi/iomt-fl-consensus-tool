@@ -1,4 +1,4 @@
-# IoHT-FL Tool - Dependencies
+# IoMT-FL Consensus Tool - Dependencies
 # Python 3.10+ required (standard library only)
 
 # No external dependencies needed - uses Python stdlib only:

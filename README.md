@@ -1,4 +1,4 @@
-# IoHT-FL Tool
+# IoMT-FL Consensus Tool
 
 Ferramenta em Python para simulação de dispositivos IoHT, consenso e agregação em Federated Learning.
 
@@ -14,7 +14,7 @@ Ferramenta em Python para simulação de dispositivos IoHT, consenso e agregaç�
 
 ## Estrutura
 ```
-├── src/iotht_fl/          # Código-fonte (domain-driven)
+├── src/iomt_fl_consensus/ # Código-fonte (domain-driven)
 │   ├── core/              #   FLServer, IoHTClient, modelos
 │   ├── aggregation/       #   FedAvg, Weighted, Robust, MultiKrum
 │   ├── consensus/         #   Threshold, Voting, HotStuff

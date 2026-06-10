@@ -1,4 +1,4 @@
-# AGENTS.md - IoHT-FL Tool
+# AGENTS.md - IoMT-FL Consensus Tool
 
 ## Execução
 python scripts/run_demo.py --config config/scenario_baseline.json
@@ -21,8 +21,8 @@ python tests/test_smoke.py
 num_clients, rounds, client_fraction, aggregator, consensus, max_deviation, failure_rate, noise, non_iid
 
 ## Extensibilidade
-Adicionar agregador: src/iotht_fl/aggregators.py + runner.py
-Adicionar consenso: src/iotht_fl/consensus.py + runner.py
+Adicionar agregador: src/iomt_fl_consensus/aggregation/ + runner/experiment.py
+Adicionar consenso: src/iomt_fl_consensus/consensus/ + runner/experiment.py
 
 ## Saídas
 results/*.csv, results/*.json (métricas por rodada)

@@ -1,7 +1,7 @@
 # Demonstração da Ferramenta
 
 ## Objetivo
-Demonstrar a execução da ferramenta de simulação IoHT-FL com cinco cenários:
+Demonstrar a execução da ferramenta de simulação IoMT-FL Consensus com cinco cenários:
 
 | # | Cenário | Agregador | Consenso | Propósito |
 |---|---------|-----------|----------|-----------|

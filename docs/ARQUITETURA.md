@@ -65,7 +65,7 @@ Resumo das classes por pacote:
 ## Pacotes (domain-driven)
 
 ```
-src/iotht_fl/
+src/iomt_fl_consensus/
 ├── __init__.py          # Re-exports da API pública
 ├── core/                # Entidades centrais
 │   ├── models.py        #   ResourceProfile, ModelUpdate
@@ -141,6 +141,6 @@ Campos específicos para agregadores/consensos avançados:
 - **hotstuff**: `f` (tolerância a falhas, default 1)
 
 ## Extensibilidade
-- **Novo agregador**: criar classe em `src/iotht_fl/aggregation/` seguindo a interface `aggregate(updates) -> Dict[str, float]` e registrar em `runner/experiment.py:_build_aggregator()`
-- **Novo consenso**: criar classe em `src/iotht_fl/consensus/` seguindo a interface `validate_updates(updates, round_num=1) -> List[ModelUpdate]` e registrar em `runner/experiment.py:_build_consensus()`
+- **Novo agregador**: criar classe em `src/iomt_fl_consensus/aggregation/` seguindo a interface `aggregate(updates) -> Dict[str, float]` e registrar em `runner/experiment.py:_build_aggregator()`
+- **Novo consenso**: criar classe em `src/iomt_fl_consensus/consensus/` seguindo a interface `validate_updates(updates, round_num=1) -> List[ModelUpdate]` e registrar em `runner/experiment.py:_build_consensus()`
 - **Novo cenário**: adicionar arquivo JSON em `config/`

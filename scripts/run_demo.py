@@ -6,7 +6,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from iotht_fl.runner import ExperimentRunner
+from iomt_fl_consensus.runner import ExperimentRunner
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--config", required=True)

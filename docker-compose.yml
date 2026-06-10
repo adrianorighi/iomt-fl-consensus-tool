@@ -1,7 +1,7 @@
 services:
-  iotht-fl:
+  iomt-fl-consensus:
     build: .
-    container_name: iotht-fl-tool
+    container_name: iomt-fl-consensus-tool
     volumes:
       - ./results:/app/results
     environment:
