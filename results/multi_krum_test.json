@@ -1,0 +1,122 @@
+[
+  {
+    "round": 1,
+    "participation": 15,
+    "accepted_updates": 14,
+    "communication_cost": 45,
+    "w1": 0.0839617520690707,
+    "w2": 0.094056265957789,
+    "bias": 0.033597830499625565,
+    "proxy_accuracy": 0.5352693080877475,
+    "aggregator": "multi_krum",
+    "consensus": "threshold"
+  },
+  {
+    "round": 2,
+    "participation": 15,
+    "accepted_updates": 14,
+    "communication_cost": 45,
+    "w1": 0.15974383969287223,
+    "w2": 0.18567571112966755,
+    "bias": 0.09725051327610292,
+    "proxy_accuracy": 0.5737783440164405,
+    "aggregator": "multi_krum",
+    "consensus": "threshold"
+  },
+  {
+    "round": 3,
+    "participation": 15,
+    "accepted_updates": 15,
+    "communication_cost": 45,
+    "w1": 0.24619668916727744,
+    "w2": 0.27702885116517156,
+    "bias": 0.13189029604865976,
+    "proxy_accuracy": 0.6091859727301848,
+    "aggregator": "multi_krum",
+    "consensus": "threshold"
+  },
+  {
+    "round": 4,
+    "participation": 15,
+    "accepted_updates": 13,
+    "communication_cost": 45,
+    "w1": 0.32050818528006925,
+    "w2": 0.37640428290888417,
+    "bias": 0.19074804626112338,
+    "proxy_accuracy": 0.6479434190750128,
+    "aggregator": "multi_krum",
+    "consensus": "threshold"
+  },
+  {
+    "round": 5,
+    "participation": 15,
+    "accepted_updates": 14,
+    "communication_cost": 45,
+    "w1": 0.3852976652540017,
+    "w2": 0.46751286526664276,
+    "bias": 0.23320885202403457,
+    "proxy_accuracy": 0.6810032304241131,
+    "aggregator": "multi_krum",
+    "consensus": "threshold"
+  },
+  {
+    "round": 6,
+    "participation": 15,
+    "accepted_updates": 14,
+    "communication_cost": 45,
+    "w1": 0.45325896315755504,
+    "w2": 0.5593669629533541,
+    "bias": 0.29202405554814637,
+    "proxy_accuracy": 0.7174416636098426,
+    "aggregator": "multi_krum",
+    "consensus": "threshold"
+  },
+  {
+    "round": 7,
+    "participation": 15,
+    "accepted_updates": 13,
+    "communication_cost": 45,
+    "w1": 0.5352505813124945,
+    "w2": 0.6737483074556267,
+    "bias": 0.3491734484412672,
+    "proxy_accuracy": 0.7596953895348981,
+    "aggregator": "multi_krum",
+    "consensus": "threshold"
+  },
+  {
+    "round": 8,
+    "participation": 15,
+    "accepted_updates": 14,
+    "communication_cost": 45,
+    "w1": 0.6125219868333281,
+    "w2": 0.757178487570069,
+    "bias": 0.3900856381264942,
+    "proxy_accuracy": 0.7932976854216485,
+    "aggregator": "multi_krum",
+    "consensus": "threshold"
+  },
+  {
+    "round": 9,
+    "participation": 15,
+    "accepted_updates": 13,
+    "communication_cost": 45,
+    "w1": 0.707196910047254,
+    "w2": 0.8612865807517829,
+    "bias": 0.4292458492160409,
+    "proxy_accuracy": 0.832954890002513,
+    "aggregator": "multi_krum",
+    "consensus": "threshold"
+  },
+  {
+    "round": 10,
+    "participation": 15,
+    "accepted_updates": 13,
+    "communication_cost": 45,
+    "w1": 0.7719130580144851,
+    "w2": 0.9543491888710578,
+    "bias": 0.4841017466494458,
+    "proxy_accuracy": 0.868393998922498,
+    "aggregator": "multi_krum",
+    "consensus": "threshold"
+  }
+]

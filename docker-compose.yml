@@ -1,0 +1,8 @@
+services:
+  iotht-fl:
+    build: .
+    container_name: iotht-fl-tool
+    volumes:
+      - ./results:/app/results
+    environment:
+      - PYTHONUNBUFFERED=1

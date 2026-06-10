@@ -1,0 +1,122 @@
+[
+  {
+    "round": 1,
+    "participation": 15,
+    "accepted_updates": 7,
+    "communication_cost": 45,
+    "w1": 0.0990457243588965,
+    "w2": 0.0849452493988439,
+    "bias": 0.04146270849500899,
+    "proxy_accuracy": 0.5375756137087916,
+    "aggregator": "fedavg",
+    "consensus": "hotstuff"
+  },
+  {
+    "round": 2,
+    "participation": 15,
+    "accepted_updates": 7,
+    "communication_cost": 45,
+    "w1": 0.17939782895554737,
+    "w2": 0.17352189797893705,
+    "bias": 0.10604643754221614,
+    "proxy_accuracy": 0.5764943607461168,
+    "aggregator": "fedavg",
+    "consensus": "hotstuff"
+  },
+  {
+    "round": 3,
+    "participation": 15,
+    "accepted_updates": 7,
+    "communication_cost": 45,
+    "w1": 0.27009206350171505,
+    "w2": 0.269400313311928,
+    "bias": 0.1538853319501323,
+    "proxy_accuracy": 0.6155629514606292,
+    "aggregator": "fedavg",
+    "consensus": "hotstuff"
+  },
+  {
+    "round": 4,
+    "participation": 15,
+    "accepted_updates": 7,
+    "communication_cost": 45,
+    "w1": 0.34945797214623514,
+    "w2": 0.37236881469461897,
+    "bias": 0.22421329716350694,
+    "proxy_accuracy": 0.6576733473340601,
+    "aggregator": "fedavg",
+    "consensus": "hotstuff"
+  },
+  {
+    "round": 5,
+    "participation": 15,
+    "accepted_updates": 7,
+    "communication_cost": 45,
+    "w1": 0.4249041547850265,
+    "w2": 0.4660775108603512,
+    "bias": 0.272227061208412,
+    "proxy_accuracy": 0.6938681211422982,
+    "aggregator": "fedavg",
+    "consensus": "hotstuff"
+  },
+  {
+    "round": 6,
+    "participation": 15,
+    "accepted_updates": 7,
+    "communication_cost": 45,
+    "w1": 0.49332741364471155,
+    "w2": 0.5631976317075162,
+    "bias": 0.3487163834424091,
+    "proxy_accuracy": 0.7342069047991061,
+    "aggregator": "fedavg",
+    "consensus": "hotstuff"
+  },
+  {
+    "round": 7,
+    "participation": 15,
+    "accepted_updates": 7,
+    "communication_cost": 45,
+    "w1": 0.5705608790542517,
+    "w2": 0.6769823029379594,
+    "bias": 0.4056983582165736,
+    "proxy_accuracy": 0.7755402567014641,
+    "aggregator": "fedavg",
+    "consensus": "hotstuff"
+  },
+  {
+    "round": 8,
+    "participation": 15,
+    "accepted_updates": 7,
+    "communication_cost": 45,
+    "w1": 0.6556125448505613,
+    "w2": 0.7733010631884129,
+    "bias": 0.4629420745352021,
+    "proxy_accuracy": 0.8153092804290294,
+    "aggregator": "fedavg",
+    "consensus": "hotstuff"
+  },
+  {
+    "round": 9,
+    "participation": 15,
+    "accepted_updates": 7,
+    "communication_cost": 45,
+    "w1": 0.7416413731448684,
+    "w2": 0.8790717811257331,
+    "bias": 0.5079972614529737,
+    "proxy_accuracy": 0.8547850692872625,
+    "aggregator": "fedavg",
+    "consensus": "hotstuff"
+  },
+  {
+    "round": 10,
+    "participation": 15,
+    "accepted_updates": 7,
+    "communication_cost": 45,
+    "w1": 0.8172287106625239,
+    "w2": 0.9732795554786393,
+    "bias": 0.5627633837846351,
+    "proxy_accuracy": 0.8922119416542997,
+    "aggregator": "fedavg",
+    "consensus": "hotstuff"
+  }
+]

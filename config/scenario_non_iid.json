@@ -1,0 +1,14 @@
+{
+  "name": "non_iid_weighted_voting",
+  "seed": 42,
+  "num_clients": 50,
+  "samples_per_client": 120,
+  "rounds": 15,
+  "client_fraction": 0.75,
+  "aggregator": "weighted",
+  "consensus": "voting",
+  "min_agreement": 0.66,
+  "failure_rate": 0.08,
+  "noise": 0.04,
+  "non_iid": true
+}

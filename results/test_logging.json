@@ -1,0 +1,38 @@
+[
+  {
+    "round": 1,
+    "participation": 7,
+    "accepted_updates": 6,
+    "communication_cost": 21,
+    "w1": 0.0641427715930979,
+    "w2": 0.08152258163585109,
+    "bias": 0.04466544149343421,
+    "proxy_accuracy": 0.5317217991203972,
+    "aggregator": "fedavg",
+    "consensus": "threshold"
+  },
+  {
+    "round": 2,
+    "participation": 7,
+    "accepted_updates": 6,
+    "communication_cost": 21,
+    "w1": 0.13761110267936863,
+    "w2": 0.17547114332267416,
+    "bias": 0.09715632786814085,
+    "proxy_accuracy": 0.5683730956450306,
+    "aggregator": "fedavg",
+    "consensus": "threshold"
+  },
+  {
+    "round": 3,
+    "participation": 7,
+    "accepted_updates": 7,
+    "communication_cost": 21,
+    "w1": 0.2095103943639414,
+    "w2": 0.2770060751529481,
+    "bias": 0.14205202190021515,
+    "proxy_accuracy": 0.6047614152361841,
+    "aggregator": "fedavg",
+    "consensus": "threshold"
+  }
+]

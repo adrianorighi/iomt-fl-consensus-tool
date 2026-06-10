@@ -1,0 +1,14 @@
+{
+  "name": "baseline_fedavg_threshold",
+  "seed": 42,
+  "num_clients": 50,
+  "samples_per_client": 120,
+  "rounds": 15,
+  "client_fraction": 0.75,
+  "aggregator": "fedavg",
+  "consensus": "threshold",
+  "max_deviation": 0.6,
+  "failure_rate": 0.05,
+  "noise": 0.03,
+  "non_iid": false
+}

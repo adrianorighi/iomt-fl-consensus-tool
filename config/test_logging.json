@@ -1,0 +1,17 @@
+{
+  "name": "test_logging",
+  "seed": 42,
+  "num_clients": 10,
+  "samples_per_client": 50,
+  "rounds": 3,
+  "client_fraction": 0.7,
+  "aggregator": "fedavg",
+  "consensus": "threshold",
+  "max_deviation": 0.6,
+  "failure_rate": 0.1,
+  "noise": 0.05,
+  "non_iid": false,
+  "log_level": "DEBUG",
+  "log_file": "results/test_logging.log",
+  "log_format": "json"
+}

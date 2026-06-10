@@ -1,0 +1,18 @@
+{
+  "name": "hotstuff_test",
+  "seed": 42,
+  "num_clients": 20,
+  "samples_per_client": 100,
+  "rounds": 10,
+  "client_fraction": 0.75,
+  "aggregator": "fedavg",
+  "consensus": "hotstuff",
+  "hotstuff_f": 2,
+  "hotstuff_leader": "random",
+  "hotstuff_phases": "single",
+  "failure_rate": 0.1,
+  "noise": 0.05,
+  "non_iid": false,
+  "log_level": "INFO",
+  "log_format": "text"
+}

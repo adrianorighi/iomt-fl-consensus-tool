@@ -1,0 +1,12 @@
+# IoHT-FL Tool - Dependencies
+# Python 3.10+ required (standard library only)
+
+# No external dependencies needed - uses Python stdlib only:
+# - json
+# - math
+# - random
+# - statistics
+# - csv
+# - argparse
+# - pathlib
+# - dataclasses

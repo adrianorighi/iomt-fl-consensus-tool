@@ -1,0 +1,216 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+\usepackage{graphicx,url}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\sloppy
+
+\title{Ferramenta em Python para Simulação de Dispositivos IoHT, Consenso e Agregação em Federated Learning}
+
+\author{Adriano Zavareze Righi}
+
+\address{Programa de Pós-graduação em Computação Aplicada (PPGCA)\\
+Universidade do Vale do Rio dos Sinos (Unisinos)\\
+São Leopoldo, RS, Brasil}
+
+\begin{document}
+
+\maketitle
+
+\begin{resumo}
+A Internet das Coisas em Saúde (\textit{Internet of Health Things} -- IoHT) forma ecossistemas distribuídos de dispositivos médicos, vestíveis e sensores que coletam continuamente dados sensíveis de pacientes e apoiam serviços de saúde orientados a dados. O \textit{Federated Learning} (FL) surge como paradigma promissor para treinar modelos de aprendizado de máquina de forma colaborativa, sem centralizar os dados brutos, aspecto fundamental para atender requisitos de privacidade, segurança e regulamentação em cenários de saúde. Entretanto, a efetividade do FL em IoHT depende fortemente de estratégias de agregação e consenso capazes de lidar com dados heterogêneos, não IID, conectividade intermitente e clientes potencialmente maliciosos. Este artigo descreve a implementação e demonstração de uma ferramenta de simulação em Python para cenários IoHT, que suporta rodadas configuráveis de FL, múltiplas estratégias de agregação e mecanismos de consenso, geração de dados sintéticos inspirados em saúde e orquestração de experimentos. A ferramenta visa apoiar atividades de pesquisa e ensino ao permitir a avaliação reprodutível de \textit{trade-offs} entre acurácia, custo de comunicação e robustez em FL sobre ambientes IoHT.
+\end{resumo}
+
+\section{Introdução}
+
+A crescente digitalização de processos de saúde e a disseminação de dispositivos conectados motivaram o surgimento do conceito de \textit{Internet of Health Things} (IoHT), caracterizado por redes de sensores, vestíveis, smartphones e equipamentos médicos que monitoram continuamente sinais vitais e outros indicadores clínicos \cite{Kumar2020_SecureIoHT}. Em tais ambientes, a centralização de dados sensíveis em um único repositório pode ser inviável ou indesejável devido a restrições regulatórias, riscos de privacidade e limitações de conectividade \cite{Kumar2020_SecureIoHT,Nevrataki2023_SurveyFLApplications}.
+
+Nesse contexto, \textit{Federated Learning} (FL) surge como alternativa ao treinamento centralizado, permitindo que múltiplas entidades colaborem na construção de um modelo global por meio da troca de parâmetros ou gradientes, mantendo os dados em seus locais de origem \cite{Zhang2024_FLIoTSurvey}. Aplicações de FL em saúde incluem monitoramento remoto, diagnóstico assistido, detecção de anomalias e construção de modelos em consórcios hospitalares, em que a não movimentação de dados de pacientes é um requisito central \cite{Nevrataki2023_SurveyFLApplications,Kalaiselvi2023_HealthcareMetaverseSurvey}.
+
+No entanto, a combinação de FL com IoHT coloca desafios adicionais: heterogeneidade de dispositivos, distribuição não IID dos dados, falhas de comunicação e ameaças adversariais exigem mecanismos adequados de consenso e estratégias de agregação robustas \cite{Kumar2020_SecureIoHT,Zhao2022_FLIoTDataValue}. Estratégias clássicas como FedAvg podem apresentar degradação de desempenho em ambientes altamente heterogêneos, levando ao estudo de esquemas de agregação ponderados, baseados em valor de dados ou robustos a outliers \cite{Zhao2022_FLIoTDataValue,Zhang2024_FLIoTSurvey}.
+
+Ferramentas de simulação têm sido utilizadas para avaliar algoritmos de FL em cenários realistas, permitindo controlar distribuição de dados, padrões de participação, falhas e ataques em ambientes sensíveis como saúde \cite{Intel2020_OpenFLTutorial}. Este artigo apresenta a implementação completa e a demonstração de uma ferramenta de simulação em Python para FL em IoHT, alinhada à proposta previamente apresentada na disciplina de Computação Aplicada do PPGCA. A ferramenta foi projetada para apoiar experimentação acadêmica, com arquitetura modular, geração de dados sintéticos, suporte a diferentes estratégias de agregação e consenso, e exportação de métricas para análise.
+
+O restante deste artigo está organizado como segue. A Seção~\ref{sec:relacionados} apresenta trabalhos relacionados em FL aplicado a IoT/IoHT e ferramentas de simulação. A Seção~\ref{sec:projeto} revisita a proposta e descreve a arquitetura de software da ferramenta. A Seção~\ref{sec:implementacao} detalha a implementação em Python. A Seção~\ref{sec:avaliacao} apresenta a metodologia de avaliação e resultados obtidos em três cenários experimentais. A Seção~\ref{sec:conclusao} discute limitações, contribuições e trabalhos futuros.
+
+\section{Trabalhos Relacionados}
+\label{sec:relacionados}
+
+Diversos trabalhos investigam o uso de FL em cenários de IoT e IoHT. Zhang et al.\ apresentam uma revisão sistemática de FL em Internet das Coisas, discutindo desafios de heterogeneidade, escalabilidade, segurança e privacidade, bem como técnicas de agregação e comunicação eficientes \cite{Zhang2024_FLIoTSurvey}. No contexto específico de saúde, Kalaiselvi et al.\ discutem a aplicação de FL em um cenário de \textit{healthcare metaverse}, destacando oportunidades e desafios de integração entre dispositivos, ambientes virtuais e requisitos de privacidade \cite{Kalaiselvi2023_HealthcareMetaverseSurvey}.
+
+Kumar et al.\ propõem um framework de IoHT seguro com FL gerenciado por blockchain, focando em integridade, rastreabilidade e privacidade de dados de saúde, além de discutir aspectos de consenso e gerenciamento de modelos em ambientes distribuídos \cite{Kumar2020_SecureIoHT}. Esse tipo de abordagem evidencia a importância de mecanismos de consenso e trilhas de auditoria em aplicações médicas sensíveis.
+
+No que se refere à agregação, Zhao et al.\ propõem um framework de FL baseado na avaliação de valor de dados em ambientes de IoT industrial, em que o peso de cada cliente na agregação é ajustado com base em métricas de qualidade ou relevância de seus dados \cite{Zhao2022_FLIoTDataValue}. Embora o foco seja industrial, a ideia de ponderar a contribuição dos clientes é relevante para IoHT, onde dispositivos podem observar diferentes distribuições de pacientes.
+
+Nevrataki et al.\ apresentam uma visão geral de aplicações de FL em saúde, finanças e segurança, discutindo desafios de privacidade, robustez e regulação \cite{Nevrataki2023_SurveyFLApplications}. Finalmente, iniciativas como o OpenFL da Intel oferecem infraestrutura e exemplos práticos de FL para saúde, ilustrando arquiteturas de referência e boas práticas de implementação, que inspiram o desenho de ferramentas de simulação e prototipagem \cite{Intel2020_OpenFLTutorial}.
+
+Diferentemente desses trabalhos, o foco deste artigo é a descrição de uma ferramenta didática e extensível de simulação em Python, voltada especificamente para o estudo de consenso e agregação em FL em cenários IoHT. A ferramenta se inspira em conceitos e requisitos discutidos na literatura, mas é implementada de forma leve, facilitando o uso em disciplinas e experimentos locais.
+
+\section{Proposta e Arquitetura do Projeto}
+\label{sec:projeto}
+
+\subsection{Escopo e objetivos}
+
+A ferramenta tem como objetivo principal simular cenários IoHT com múltiplos dispositivos clientes, um servidor de FL e mecanismos de consenso e agregação configuráveis. A partir de dados sintéticos inspirados em sinais vitais, a ferramenta permite executar rodadas de FL, medir métricas de participação, custo de comunicação e um proxy de acurácia, e comparar diferentes combinações de agregadores e módulos de consenso.
+
+Os objetivos específicos incluem:
+\begin{itemize}
+  \item Viabilizar experimentos reprodutíveis de FL em IoHT sem necessidade de infraestrutura física, utilizando apenas Python e bibliotecas padrão.
+  \item Oferecer uma API modular para implementação e substituição de estratégias de agregação e consenso.
+  \item Permitir a configuração de cenários com diferentes níveis de heterogeneidade (IID e não IID), taxa de falha de clientes e ruído nas atualizações.
+  \item Exportar resultados em formatos simples (CSV e JSON), facilitando análise posterior em ferramentas externas.
+\end{itemize}
+
+\subsection{Visão geral da arquitetura}
+
+A arquitetura de software segue um padrão orientado a objetos, com separação clara entre núcleo de FL, estratégias de agregação, mecanismos de consenso, geração de dados e orquestração de experimentos. A Figura~\ref{fig:arquitetura} ilustra a visão de alto nível, com os principais componentes e interações.
+
+O módulo \texttt{core} contém as classes centrais:
+\begin{itemize}
+  \item \textbf{IoHTClient}: representa um cliente IoHT virtual, com seus dados locais, modelo local, perfil de recursos e parâmetros de falha e ruído.
+  \item \textbf{FLServer}: coordena as rodadas de FL, selecionando clientes, distribuindo o modelo global, coletando atualizações e delegando a agregação e consenso.
+  \item \textbf{ResourceProfile} e \textbf{ModelUpdate}: estruturas de dados auxiliares para caracterizar recursos dos clientes e encapsular atualizações de modelo.
+\end{itemize}
+
+O módulo \texttt{aggregators} define diferentes estratégias de agregação:
+\begin{itemize}
+  \item \textbf{FedAvgAggregator}: implementação do algoritmo FedAvg, agregando atualizações ponderadas pelo número de amostras \cite{Zhang2024_FLIoTSurvey}.
+  \item \textbf{WeightedAggregator}: variante que pondera contribuições considerando um valor derivado dos dados, inspirada em abordagens de avaliação de valor de dados \cite{Zhao2022_FLIoTDataValue}.
+  \item \textbf{RobustAggregator}: agregação baseada na mediana, buscando maior robustez a outliers nas atualizações.
+\end{itemize}
+
+O módulo \texttt{consensus} encapsula mecanismos de consenso:
+\begin{itemize}
+  \item \textbf{ThresholdConsensus}: filtra atualizações cujo desvio em relação a um limite pré-definido é muito alto.
+  \item \textbf{VotingConsensus}: valida atualizações com base em um critério de concordância com a mediana, aproximando um mecanismo de votação entre clientes.
+\end{itemize}
+
+O módulo \texttt{data} provê geração de dados sintéticos de saúde, enquanto o módulo \texttt{runner} implementa o \textit{ExperimentRunner}, responsável por carregar configurações, criar clientes e servidor, executar rodadas e exportar resultados. Arquivos de configuração em formato JSON descrevem cenários específicos, seguindo o princípio de separar código e parametrização.
+
+\begin{figure}[!ht]
+  \centering
+  % Substitua por um includegraphics para o diagrama exportado do draw.io
+  \fbox{\parbox{0.9\linewidth}{Figura ilustrativa da arquitetura da ferramenta (servidor FL, clientes IoHT, módulos de agregação e consenso, repositório de dados e orquestrador de experimentos).}}
+  \caption{Visão geral da arquitetura de software da ferramenta de simulação IoHT-FL.}
+  \label{fig:arquitetura}
+\end{figure}
+
+\subsection{Diagrama de classes UML}
+
+O diagrama UML de classes, desenvolvido em paralelo à ferramenta, evidencia herança entre agregadores e módulos de consenso, bem como associações entre servidor, clientes, repositório de dados e armazenamento de métricas. Esse diagrama foi importado e refinado no draw.io, auxiliando no planejamento da implementação e no alinhamento com os requisitos da disciplina para descrição da solução de software \cite{Kumar2020_SecureIoHT,Intel2020_OpenFLTutorial}.
+
+\section{Implementação}
+\label{sec:implementacao}
+
+\subsection{Organização do projeto}
+
+A ferramenta foi implementada em Python 3, usando apenas bibliotecas padrão, facilitando sua execução em diferentes ambientes. A estrutura de diretórios é a seguinte:
+\begin{itemize}
+  \item \texttt{src/iotht\_fl/}: código-fonte principal, incluindo módulos \texttt{core}, \texttt{aggregators}, \texttt{consensus}, \texttt{data} e \texttt{runner}.
+  \item \texttt{config/}: arquivos JSON de configuração de cenários experimentais.
+  \item \texttt{results/}: saídas em CSV e JSON geradas pelos experimentos.
+  \item \texttt{docs/}: documentação de arquitetura e instruções de demonstração.
+  \item \texttt{latex\_demo/}: versão resumida do artigo em LaTeX utilizada durante o desenvolvimento.
+  \item \texttt{scripts/}: scripts auxiliares, incluindo \texttt{run\_demo.py}.
+  \item \texttt{tests/}: testes básicos de fumaça para verificação rápida da ferramenta.
+\end{itemize}
+
+O script \texttt{run\_demo.py} atua como ponto de entrada principal, recebendo o caminho de um arquivo de configuração e acionando o \texttt{ExperimentRunner}. O uso de arquivos de configuração permite definir rapidamente novos cenários sem modificar o código.
+
+\subsection{Núcleo de FL e clientes IoHT}
+
+A classe \texttt{IoHTClient} encapsula os dados locais, perfil de recursos, probabilidade de falha e ruído nas atualizações. O método \texttt{train\_local\_model} implementa uma atualização simplificada de modelo, baseada em estatísticas dos dados locais e um ruído controlado, retornando um objeto \texttt{ModelUpdate}. O método \texttt{simulate\_failure} permite simular indisponibilidade do cliente em uma rodada, representando falhas de comunicação típicas em IoHT.
+
+A classe \texttt{FLServer} coordena o FL, contendo o modelo global, referências aos clientes, agregador e módulo de consenso. O método \texttt{select\_clients} realiza amostragem aleatória de clientes com base em uma fração configurável. Em cada rodada, o servidor distribui o modelo global, coleta atualizações locais, aplica o mecanismo de consenso e finalmente delega a agregação, atualizando o modelo global. Essa lógica permite estudar como diferentes combinações de agregação e consenso influenciam o comportamento do sistema.
+
+\subsection{Agregadores e mecanismos de consenso}
+
+O módulo \texttt{aggregators} implementa três estratégias:
+\begin{itemize}
+  \item \textbf{FedAvgAggregator}: calcula a média ponderada dos parâmetros, com pesos proporcionais ao número de amostras de cada cliente, replicando o comportamento padrão do algoritmo FedAvg \cite{Zhang2024_FLIoTSurvey}.
+  \item \textbf{WeightedAggregator}: incorpora uma ponderação adicional baseada em um valor derivado dos dados (por exemplo, média das saídas), inspirando-se em frameworks que valorizam dados mais informativos \cite{Zhao2022_FLIoTDataValue}.
+  \item \textbf{RobustAggregator}: utiliza a mediana dos parâmetros para reduzir impacto de valores extremos, aproximando um agregador robusto a outliers.
+\end{itemize}
+
+O módulo \texttt{consensus} contém:
+\begin{itemize}
+  \item \textbf{ThresholdConsensus}: descarta atualizações cujo somatório dos valores absolutos dos parâmetros exceda um limiar relativo, com base em um hiperparâmetro \texttt{max\_deviation}.
+  \item \textbf{VotingConsensus}: calcula a mediana dos parâmetros e aceita atualizações que apresentem concordância mínima (por parâmetro) com esse valor, controlada por \texttt{min\_agreement}.
+\end{itemize}
+
+Ambos os módulos foram projetados para serem facilmente extensíveis, permitindo que futuros trabalhos introduzam novas estratégias sem alterar o núcleo da ferramenta.
+
+\subsection{Geração de dados sintéticos}
+
+O módulo \texttt{data} implementa geração de dados sintéticos inspirados em sinais vitais (por exemplo, frequência cardíaca e temperatura), com rótulos binários representando risco clínico simplificado. O parâmetro \texttt{drift} permite simular diferentes distribuições por cliente, permitindo a construção de cenários IID e não IID. O \texttt{DataRepository} utiliza esse gerador para criar partições de dados por cliente, de acordo com o número de clientes e amostras por cliente especificados na configuração.
+
+\subsection{Orquestração de experimentos e scripts}
+
+A classe \texttt{ExperimentRunner} é responsável por:
+\begin{itemize}
+  \item Ler o arquivo de configuração JSON.
+  \item Instanciar agregador e módulo de consenso apropriados.
+  \item Gerar dados sintéticos e criar clientes IoHT.
+  \item Instanciar o servidor FL e executar o número de rodadas configurado.
+  \item Registrar, em cada rodada, métricas como participação de clientes, número de atualizações aceitas, custo de comunicação (proxy baseado no número de participantes) e um proxy de acurácia.
+  \item Exportar os resultados em arquivos CSV e JSON na pasta \texttt{results/}.
+\end{itemize}
+
+O script \texttt{scripts/run\_demo.py} oferece uma interface simples de linha de comando:
+\begin{verbatim}
+python scripts/run_demo.py --config config/scenario_baseline.json
+\end{verbatim}
+permitindo a execução de diferentes cenários sem alterações no código.
+
+\section{Metodologia de Avaliação e Resultados}
+\label{sec:avaliacao}
+
+\subsection{Cenários experimentais}
+
+Foram definidos três cenários principais para demonstrar a ferramenta e avaliar o impacto de agregação e consenso:
+\begin{itemize}
+  \item \textbf{Cenário baseline}: FedAvg com \textit{ThresholdConsensus}, dados aproximadamente IID, taxa de falha de clientes baixa e ruído moderado.
+  \item \textbf{Cenário non-IID}: \textit{WeightedAggregator} com \textit{VotingConsensus}, distribuição não IID entre clientes, refletindo diferentes perfis de pacientes.
+  \item \textbf{Cenário robusto}: \textit{RobustAggregator} com \textit{ThresholdConsensus}, combinando robustez a outliers com heterogeneidade de dados e maior taxa de falha de clientes.
+\end{itemize}
+
+Cada cenário foi configurado com 12 clientes, 120 amostras por cliente, 15 rodadas de FL e fração de participação de 75\% por rodada. A ferramenta gera arquivos CSV e JSON com métricas por rodada, permitindo análises gráficas e comparações.
+
+\subsection{Métricas coletadas}
+
+As principais métricas avaliadas foram:
+\begin{itemize}
+  \item \textbf{Participação}: número de clientes selecionados por rodada.
+  \item \textbf{Atualizações aceitas}: número de atualizações que passaram pelo mecanismo de consenso.
+  \item \textbf{Custo de comunicação}: proxy proporcional ao número de clientes participantes em cada rodada.
+  \item \textbf{Proxy de acurácia}: medida heurística baseada na magnitude dos parâmetros do modelo global, variando entre 0,5 e 0,99.
+\end{itemize}
+
+Embora o proxy de acurácia não corresponda a uma métrica real de desempenho em dados de teste, ele permite observar tendências relativas entre cenários e a capacidade da ferramenta de convergir para parâmetros mais estáveis ao longo das rodadas.
+
+\subsection{Resultados e discussão}
+
+Os resultados gerados pela ferramenta evidenciaram diferenças entre as combinações de agregadores e consenso, especialmente em cenários não IID e com maior ruído, em linha com observações da literatura sobre FL em IoT e saúde \cite{Zhang2024_FLIoTSurvey,Nevrataki2023_SurveyFLApplications}. Em particular, o uso de \textit{WeightedAggregator} em dados não IID permitiu ajustar o peso relativo de clientes com contribuições consideradas mais relevantes, enquanto o \textit{RobustAggregator} mitigou o impacto de atualizações extremas em cenários com ruído mais elevado \cite{Zhao2022_FLIoTDataValue}.
+
+O mecanismo de \textit{ThresholdConsensus} mostrou-se simples de implementar e efetivo na filtragem de atualizações com desvio exagerado, aproximando-se de abordagens de detecção de comportamento anômalo em IoHT \cite{Kumar2020_SecureIoHT}. O \textit{VotingConsensus}, por sua vez, introduziu um critério de concordância mais explícito, que pode ser explorado em trabalhos futuros com métricas mais sofisticadas de similaridade entre modelos.
+
+Além disso, a ferramenta demonstrou ser capaz de reproduzir cenários com diferentes níveis de falhas e heterogeneidade, alinhando-se à proposta de servir como plataforma de ensino e experimentação em FL aplicado a IoHT, similar ao papel de frameworks educacionais descritos em tutoriais de FL para saúde \cite{Intel2020_OpenFLTutorial}.
+
+\section{Conclusão}
+\label{sec:conclusao}
+
+Este artigo apresentou o desenvolvimento completo e a demonstração de uma ferramenta em Python para simulação de dispositivos IoHT, consenso e agregação em Federated Learning, em consonância com os requisitos de implementação e avaliação da disciplina de Computação Aplicada do PPGCA \cite{Kumar2020_SecureIoHT,Nevrataki2023_SurveyFLApplications}. A ferramenta foi projetada com arquitetura modular, suportando múltiplas estratégias de agregação e consenso, geração de dados sintéticos, configurações flexíveis de cenários e exportação de métricas para análise.
+
+Como contribuições, destacam-se: (i) a disponibilização de um código-fonte simples e extensível para FL em IoHT, adequado a contextos de ensino; (ii) a integração de diferentes mecanismos de consenso e agregação, permitindo estudar sua interação em cenários heterogêneos; e (iii) a demonstração de três cenários experimentais representativos, com resultados reprodutíveis.
+
+Trabalhos futuros incluem a integração de modelos de aprendizado de máquina mais realistas (por exemplo, redes neurais com frameworks como PyTorch), a inclusão de mecanismos de privacidade diferencial e segurança, e a ligação da ferramenta a dispositivos físicos ou emuladores de IoHT. Também se planeja disponibilizar o repositório em plataformas públicas (por exemplo, GitHub) e ampliar a documentação, seguindo recomendações de boas práticas para ferramentas de FL em saúde \cite{Intel2020_OpenFLTutorial,Kalaiselvi2023_HealthcareMetaverseSurvey}.
+
+\bibliographystyle{sbc}
+\bibliography{references}
+
+\end{document}

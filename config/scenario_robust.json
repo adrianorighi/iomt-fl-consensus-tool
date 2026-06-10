@@ -1,0 +1,14 @@
+{
+  "name": "robust_threshold",
+  "seed": 42,
+  "num_clients": 50,
+  "samples_per_client": 120,
+  "rounds": 15,
+  "client_fraction": 0.75,
+  "aggregator": "robust",
+  "consensus": "threshold",
+  "max_deviation": 0.5,
+  "failure_rate": 0.1,
+  "noise": 0.08,
+  "non_iid": true
+}

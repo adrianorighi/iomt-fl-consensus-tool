@@ -1,0 +1,116 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
+  <diagram id="arch" name="Arquitetura IoHT-FL">
+    <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Pacote core.py -->
+        <mxCell id="pkg_core" value="core.py" style="swimlane;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="260" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- Pacote aggregators.py -->
+        <mxCell id="pkg_agg" value="aggregators.py" style="swimlane;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="340" y="40" width="180" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- Pacote consensus.py -->
+        <mxCell id="pkg_cons" value="consensus.py" style="swimlane;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="40" width="180" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- Pacote data.py -->
+        <mxCell id="pkg_data" value="data.py" style="swimlane;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="220" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- Pacote runner.py -->
+        <mxCell id="pkg_runner" value="runner.py" style="swimlane;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="300" y="280" width="200" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- Classes core.py -->
+        <mxCell id="FLServer" value="FLServer&#xa;- global_model&#xa;- clients[]&#xa;- aggregator&#xa;- consensus&#xa;+ select_clients()&#xa;+ round()" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="pkg_core">
+          <mxGeometry x="20" y="30" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="IoHTClient" value="IoHTClient&#xa;- client_id&#xa;- data&#xa;- local_model&#xa;- resource_profile&#xa;+ train_local_model()&#xa;+ simulate_failure()" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="pkg_core">
+          <mxGeometry x="20" y="110" width="220" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Classes aggregators.py -->
+        <mxCell id="Aggregator" value="&lt;&lt;interface&gt;&gt;&#xa;Aggregator&#xa;+ aggregate(updates[])" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];fontStyle=1" vertex="1" parent="pkg_agg">
+          <mxGeometry x="20" y="30" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FedAvgAgg" value="FedAvgAggregator" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0" vertex="1" parent="pkg_agg">
+          <mxGeometry x="30" y="80" width="120" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="WeightedAgg" value="WeightedAggregator" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0" vertex="1" parent="pkg_agg">
+          <mxGeometry x="30" y="110" width="120" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="RobustAgg" value="RobustAggregator" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0" vertex="1" parent="pkg_agg">
+          <mxGeometry x="30" y="140" width="120" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Classes consensus.py -->
+        <mxCell id="ConsensusModule" value="&lt;&lt;interface&gt;&gt;&#xa;ConsensusModule&#xa;+ validate(updates[])" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];fontStyle=1" vertex="1" parent="pkg_cons">
+          <mxGeometry x="20" y="30" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ThresholdCons" value="ThresholdConsensus&#xa;- max_deviation" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0" vertex="1" parent="pkg_cons">
+          <mxGeometry x="20" y="80" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VotingCons" value="VotingConsensus&#xa;- min_agreement" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0" vertex="1" parent="pkg_cons">
+          <mxGeometry x="20" y="120" width="140" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Classes data.py -->
+        <mxCell id="DataRepo" value="DataRepository&#xa;- clients_data&#xa;+ get_client_data(id)&#xa;+ generate()" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]]" vertex="1" parent="pkg_data">
+          <mxGeometry x="20" y="30" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="DataGen" value="SyntheticHealthDataGenerator&#xa;- num_samples&#xa;- drift&#xa;+ generate()" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]]" vertex="1" parent="pkg_data">
+          <mxGeometry x="20" y="90" width="180" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Classe runner.py -->
+        <mxCell id="ExpRunner" value="ExperimentRunner&#xa;- config&#xa;- server&#xa;+ run()&#xa;+ export()" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]]" vertex="1" parent="pkg_runner">
+          <mxGeometry x="20" y="30" width="160" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Heranças e implementações -->
+        <mxCell id="inherit1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitPerimeter=0;entryX=0.5;entryY=1;entryPerimeter=0;strokeColor=#82b366;" edge="1" parent="1" source="FedAvgAgg" target="Aggregator">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="inherit2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitPerimeter=0;entryX=0.5;entryY=1;entryPerimeter=0;strokeColor=#82b366;" edge="1" parent="1" source="WeightedAgg" target="Aggregator">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="inherit3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitPerimeter=0;entryX=0.5;entryY=1;entryPerimeter=0;strokeColor=#82b366;" edge="1" parent="1" source="RobustAgg" target="Aggregator">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="inherit4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitPerimeter=0;entryX=0.5;entryY=1;entryPerimeter=0;strokeColor=#d6b656;" edge="1" parent="1" source="ThresholdCons" target="ConsensusModule">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="inherit5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitPerimeter=0;entryX=0.5;entryY=1;entryPerimeter=0;strokeColor=#d6b656;" edge="1" parent="1" source="VotingCons" target="ConsensusModule">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Associações -->
+        <mxCell id="assoc1" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitPerimeter=0;entryX=0;entryY=0.5;entryPerimeter=0;strokeColor=#6c8ebf;" edge="1" parent="1" source="FLServer" target="IoHTClient">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc2" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitPerimeter=0;entryX=1;entryY=0.5;entryPerimeter=0;strokeColor=#6c8ebf;" edge="1" parent="1" source="FLServer" target="Aggregator">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc3" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitPerimeter=0;entryX=1;entryY=0.5;entryPerimeter=0;strokeColor=#6c8ebf;" edge="1" parent="1" source="FLServer" target="ConsensusModule">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc4" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitPerimeter=0;entryX=0.5;entryY=0;entryPerimeter=0;strokeColor=#b85450;" edge="1" parent="1" source="DataRepo" target="DataGen">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc5" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitPerimeter=0;entryX=0.5;entryY=0;entryPerimeter=0;strokeColor=#9673a6;" edge="1" parent="1" source="ExpRunner" target="FLServer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
