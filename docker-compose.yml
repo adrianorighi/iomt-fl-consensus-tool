@@ -5,7 +5,7 @@ services:
     command: python scripts/fog_service.py
     environment:
       - PYTHONUNBUFFERED=1
-      - CONFIG_CONSENSUS=threshold
+      - CONFIG_CONSENSUS=hotstuff
       - CONFIG_MAX_DEVIATION=0.6
 
   edge:
@@ -40,7 +40,7 @@ services:
       - CONFIG_ROUNDS=15
       - CONFIG_CLIENT_FRACTION=0.75
       - CONFIG_AGGREGATOR=fedavg
-      - CONFIG_CONSENSUS=threshold
+      - CONFIG_CONSENSUS=hotstuff
       - CONFIG_MAX_DEVIATION=0.6
       - CONFIG_FAILURE_RATE=0.05
       - CONFIG_NOISE=0.03
